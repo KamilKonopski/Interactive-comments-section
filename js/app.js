@@ -71,9 +71,25 @@ const createUserInfoElement = (avatar, name, date) => {
 const createReplyButtonElement = () => {
     const replyButton = document.createElement('button');
     replyButton.classList.add('reply-btn');
-    replyButton.innerHTML = "<img class='comment__reply-btn-image' src='../images/icon-reply.svg' alt='reply button icon'/> Reply";
+    replyButton.innerHTML = "<img class='reply-btn__image' src='../images/icon-reply.svg' alt='reply button icon'/> Reply";
 
     return replyButton
+};
+
+const createDeleteButtonElement = () => {
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('delete-btn');
+    deleteButton.innerHTML = "<img class='delete-btn__image' src='../images/icon-delete.svg' alt='delete button icon'/> Delete";
+
+    return deleteButton
+}
+
+const createEditButtonElement = () => {
+    const editButton = document.createElement('button');
+    editButton.classList.add('edit-btn');
+    editButton.innerHTML = "<img class='edit-btn__image' src='../images/icon-edit.svg' alt='edit button icon'/> Edit";
+
+    return editButton
 };
 
 const createContentElement = (content) => {
@@ -90,8 +106,13 @@ const createCommentContainerElement = (comment) => {
     commentContainer.setAttribute('data-user', `${comment.user}`);
 
     commentContainer.appendChild(createLikesElement(comment.like));
-    commentContainer.appendChild(createUserInfoElement(comment.avatar, comment.userName, comment.date));
-    commentContainer.appendChild(createReplyButtonElement());
+    commentContainer.appendChild(createUserInfoElement(comment.avatar, comment.user, comment.date));
+    if(currentUser.userName === comment.user) {
+        commentContainer.appendChild(createDeleteButtonElement());
+        commentContainer.appendChild(createEditButtonElement());
+    } else {
+        commentContainer.appendChild(createReplyButtonElement());
+    }
     commentContainer.appendChild(createContentElement(comment.content));
 
     comment.replies.forEach(reply => {
@@ -103,17 +124,23 @@ const createCommentContainerElement = (comment) => {
 
 
 const createSingleCommentElement = (comment) => {
-    commentsContainer.appendChild(createCommentContainerElement(comment));
+    commentsContainer.appendChild(createCommentContainerElement(comment, currentUser));
 };
 
 const createReplyCommentElement = (reply) => {
     const replyContainter = document.createElement('div');
     replyContainter.classList.add('comment__reply');
-    replyContainter.setAttribute('data-user', `${reply.replyingTo}`)
+    replyContainter.setAttribute('data-user', `${reply.user.username}`);
+    replyContainter.setAttribute('data-reply', `${reply.replyingTo}`);
 
     replyContainter.appendChild(createLikesElement(reply.score));
     replyContainter.appendChild(createUserInfoElement(reply.user.image.webp, reply.user.username, reply.createdAt));
-    replyContainter.appendChild(createReplyButtonElement())
+    if(currentUser.userName === reply.user.username) {
+        replyContainter.appendChild(createDeleteButtonElement());
+        replyContainter.appendChild(createEditButtonElement());
+    } else {
+        replyContainter.appendChild(createReplyButtonElement());
+    }
     replyContainter.appendChild(createContentElement(reply.content))
 
     return replyContainter
