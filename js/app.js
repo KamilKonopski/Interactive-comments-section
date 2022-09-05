@@ -102,8 +102,8 @@ const createEditButtonElement = () => {
 const createContentElement = (content, replyingTo='') => {
     const userContent = document.createElement('p');
     userContent.classList.add('content');
-    const replyUser = replyingTo ? `@${replyingTo}` : '';
-    userContent.innerHTML = `<span class='content__reply-user'>${replyUser}</span> ${content}`;
+    const replyUser = replyingTo ? `<span class='content__reply-user'>@${replyingTo}</span>` : '';
+    userContent.innerHTML = `${replyUser} ${content}`;
 
     return userContent;
 }
