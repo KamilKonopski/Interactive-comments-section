@@ -24,23 +24,42 @@ fetch('../data.json')
         init(comments, currentUser);
     });
 
+
 const createLikesElement = (score) => {
+    let likeNumber = score ? score : counter = 0;
+
     const likeContainer = document.createElement('div');
     likeContainer.classList.add('like__container');
 
     const plusBtn = document.createElement('button');
     plusBtn.classList.add('like__btn-plus');
     plusBtn.innerHTML = "<img class='comment__plus-image' src='../images/icon-plus.svg' alt='adding like icon'/>";
+    plusBtn.addEventListener('click', () => {
+        likeNumber += 1;
+        likeElement.innerText = likeNumber;
+        minusBtn.disabled = false;
+    });
     likeContainer.appendChild(plusBtn);
-
-    const like = document.createElement('span');
-    like.classList.add('like__score');
-    like.innerText = `${score}`;
-    likeContainer.appendChild(like);
+    
+    
+    const likeElement = document.createElement('span');
+    likeElement.classList.add('like__score');
+    likeElement.innerText = `${likeNumber}`;
+    likeContainer.appendChild(likeElement);
 
     const minusBtn = document.createElement('button');
     minusBtn.classList.add('like__btn-minus');
     minusBtn.innerHTML = "<img class='comment__plus-image' src='../images/icon-minus.svg' alt='subtracting like icon'/>";
+    minusBtn.addEventListener('click', () => {
+        likeNumber -= 1;
+        if(likeNumber == 0) {
+            likeElement.innerText = 0;
+            minusBtn.disabled = true;
+        } else {
+        likeElement.innerText = likeNumber;
+        
+        }
+    })
     likeContainer.appendChild(minusBtn);
 
     return likeContainer;
@@ -131,7 +150,7 @@ const createCommentContainerElement = (comment) => {
 }
 
 
-const createSingleCommentElement = (comment) => {
+const createSingleCommentElement = (comment, currentUser) => {
     commentsContainer.appendChild(createCommentContainerElement(comment, currentUser));
 };
 
