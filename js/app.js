@@ -21,12 +21,12 @@ fetch('../data.json')
             avatar: data.currentUser.image.webp,
             userName: data.currentUser.username,
         }
-        init(comments, currentUser)
+        init(comments, currentUser);
     });
 
 const createLikesElement = (score) => {
     const likeContainer = document.createElement('div');
-    likeContainer.classList.add('like__container')
+    likeContainer.classList.add('like__container');
 
     const plusBtn = document.createElement('button');
     plusBtn.classList.add('like__btn-plus');
@@ -43,7 +43,7 @@ const createLikesElement = (score) => {
     minusBtn.innerHTML = "<img class='comment__plus-image' src='../images/icon-minus.svg' alt='subtracting like icon'/>";
     likeContainer.appendChild(minusBtn);
 
-    return likeContainer
+    return likeContainer;
 };
 
 const createUserInfoElement = (avatar, name, date) => {
@@ -52,8 +52,8 @@ const createUserInfoElement = (avatar, name, date) => {
 
     const userAvatar = document.createElement('div');
     userAvatar.classList.add('user__avatar');
-    userAvatar.innerHTML = `<img class='comment__user-image' src="${avatar}" alt="${name} avatar"/>`
-    userInfoContainer.appendChild(userAvatar)
+    userAvatar.innerHTML = `<img class='comment__user-image' src="${avatar}" alt="${name} avatar"/>`;
+    userInfoContainer.appendChild(userAvatar);
 
     const userName = document.createElement('span');
     userName.classList.add('user__name');
@@ -65,7 +65,7 @@ const createUserInfoElement = (avatar, name, date) => {
     userDate.innerText = `${date}`;
     userInfoContainer.appendChild(userDate);
 
-    return userInfoContainer
+    return userInfoContainer;
 };
 
 const createReplyButtonElement = () => {
@@ -73,7 +73,7 @@ const createReplyButtonElement = () => {
     replyButton.classList.add('reply-btn');
     replyButton.innerHTML = "<img class='reply-btn__image' src='../images/icon-reply.svg' alt='reply button icon'/> Reply";
 
-    return replyButton
+    return replyButton;
 };
 
 const createDeleteButtonElement = () => {
@@ -81,7 +81,7 @@ const createDeleteButtonElement = () => {
     deleteButton.classList.add('delete-btn');
     deleteButton.innerHTML = "<img class='delete-btn__image' src='../images/icon-delete.svg' alt='delete button icon'/> Delete";
 
-    return deleteButton
+    return deleteButton;
 }
 
 const createEditButtonElement = () => {
@@ -89,13 +89,14 @@ const createEditButtonElement = () => {
     editButton.classList.add('edit-btn');
     editButton.innerHTML = "<img class='edit-btn__image' src='../images/icon-edit.svg' alt='edit button icon'/> Edit";
 
-    return editButton
+    return editButton;
 };
 
-const createContentElement = (content) => {
+const createContentElement = (content, replyingTo='') => {
     const userContent = document.createElement('p');
     userContent.classList.add('content');
-    userContent.innerText = `${content}`;
+    const replyUser = replyingTo ? `@${replyingTo}` : '';
+    userContent.innerHTML = `<span class='content__reply-user'>${replyUser}</span> ${content}`;
 
     return userContent;
 }
@@ -116,10 +117,10 @@ const createCommentContainerElement = (comment) => {
     commentContainer.appendChild(createContentElement(comment.content));
 
     comment.replies.forEach(reply => {
-        commentContainer.appendChild(createReplyCommentElement(reply))
+        commentContainer.appendChild(createReplyCommentElement(reply));
     })
 
-    return commentContainer
+    return commentContainer;
 }
 
 
@@ -141,9 +142,9 @@ const createReplyCommentElement = (reply) => {
     } else {
         replyContainter.appendChild(createReplyButtonElement());
     }
-    replyContainter.appendChild(createContentElement(reply.content))
+    replyContainter.appendChild(createContentElement(reply.content, reply.replyingTo));
 
-    return replyContainter
+    return replyContainter;
 }
 
 const init = (comments, currentUser) => {
