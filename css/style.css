@@ -25,11 +25,19 @@ body {
 }
 
 .app {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     margin: 0 auto;
     max-width: 800px;
 }
 
+.comments-container .main-comment {
+    max-width: 800px;
+}
+
 .comments-container .comment {
+    align-items: start;
     background-color: var(--white);
     border-radius: 8px;
     display: grid;
@@ -38,8 +46,8 @@ body {
         "likes content content";
     grid-template-columns: 1fr 15fr 2fr;
     grid-template-rows: 1fr 2fr;
-    margin: 20px 0;
-    padding: 20px 15px 0;
+    margin: 10px 0;
+    padding: 20px 15px 25px;
 }
 
 .comment .like__container {
@@ -49,13 +57,14 @@ body {
     display: flex;
     flex-wrap: wrap;
     grid-area: likes;
-    height: 12vh;
+    height: 8vh;
     margin-right: 15px;
 }
 
 .like__container .like__btn-plus {
     background-color: transparent;
     border: none;
+    cursor: pointer;
     flex-basis: 100%;
 }
 
@@ -70,6 +79,7 @@ body {
 .like__container .like__btn-minus {
     background-color: transparent;
     border: none;
+    cursor: pointer;
     flex-basis: 100%;
 }
 
@@ -79,20 +89,75 @@ body {
 }
 
 .user__container .user__avatar {
-    width: 5%;
+    width: 4%;
 }
 
 .user__avatar .user__avatar-image {
     width: 100%;
 }
 
+.user__container .user__name {
+    color: var(--dark-blue);
+    font-weight: 500;
+    margin: 2px 15px 0;
+}
+
+.user__container .user__date {
+    color: var(--grayish-blue);
+    margin-top: 2px;
+}
+
+.comment .reply-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--moderate-blue);
+    cursor: pointer;
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+.comment .content {
+    color: var(--grayish-blue);
+    line-height: 150%;
+    grid-area: content;
+    margin: 5px 25px 0 0;
+}
+
+.content .content__reply-user {
+    color: var(--moderate-blue);
+    font-weight: 500;
+}
+
+.replies-container {
+    border-left: 1px solid rgba(103, 114, 126, 0.5);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-left: 50px;
+    max-width: 750px;
+}
+
+.replies-container .reply-comment {
+    margin: 0 0 20px;
+    max-width: 700px;
+}
+
+.replies-container .reply-comment:nth-last-child(1) {
+    margin: 0;
+}
+
 
 .add-comment {
+
+    margin-top: 25px;
+    width: 800px;
+}
+
+.add-comment__form {
     align-items: flex-start;
     background-color: var(--white);
     border-radius: 5px;
     display: flex;
-    margin-top: 25px;
 }
 
 
