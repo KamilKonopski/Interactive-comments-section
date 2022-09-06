@@ -129,7 +129,7 @@ const createContentElement = (content, replyingTo='') => {
 
 const createCommentContainerElement = (comment) => {
     const commentContainer = document.createElement('div');
-    commentContainer.classList.add('comment');
+    commentContainer.classList.add('comment', 'main-comment');
     commentContainer.setAttribute('data-user', `${comment.user}`);
 
     commentContainer.appendChild(createLikesElement(comment.like));
@@ -142,35 +142,50 @@ const createCommentContainerElement = (comment) => {
     }
     commentContainer.appendChild(createContentElement(comment.content));
 
-    comment.replies.forEach(reply => {
-        commentContainer.appendChild(createReplyCommentElement(reply));
-    })
+    
 
     return commentContainer;
 }
 
 
 const createSingleCommentElement = (comment, currentUser) => {
-    commentsContainer.appendChild(createCommentContainerElement(comment, currentUser));
+    const commentElement = document.createElement('div');
+    commentElement.classList.add('comment-container');
+    commentElement.appendChild(createCommentContainerElement(comment, currentUser))
+
+    const repliesContainer = document.createElement('div');
+    repliesContainer.classList.add('replies-container');
+
+    comment.replies.forEach(reply => {
+        repliesContainer.appendChild(createReplyCommentElement(reply));
+    })
+
+    commentElement.appendChild(repliesContainer)
+
+    commentsContainer.appendChild(commentElement);
 };
 
 const createReplyCommentElement = (reply) => {
-    const replyContainter = document.createElement('div');
-    replyContainter.classList.add('comment__reply');
-    replyContainter.setAttribute('data-user', `${reply.user.username}`);
-    replyContainter.setAttribute('data-reply', `${reply.replyingTo}`);
 
-    replyContainter.appendChild(createLikesElement(reply.score));
-    replyContainter.appendChild(createUserInfoElement(reply.user.image.webp, reply.user.username, reply.createdAt));
+    const replyContainer = document.createElement('div');
+    replyContainer.classList.add('comment', 'reply-comment');
     if(currentUser.userName === reply.user.username) {
-        replyContainter.appendChild(createDeleteButtonElement());
-        replyContainter.appendChild(createEditButtonElement());
-    } else {
-        replyContainter.appendChild(createReplyButtonElement());
+        replyContainer.classList.add('comment', 'reply-comment', 'current-user-comment')
     }
-    replyContainter.appendChild(createContentElement(reply.content, reply.replyingTo));
+    replyContainer.setAttribute('data-user', `${reply.user.username}`);
+    replyContainer.setAttribute('data-reply', `${reply.replyingTo}`);
 
-    return replyContainter;
+    replyContainer.appendChild(createLikesElement(reply.score));
+    replyContainer.appendChild(createUserInfoElement(reply.user.image.webp, reply.user.username, reply.createdAt));
+    if(currentUser.userName === reply.user.username) {
+        replyContainer.appendChild(createDeleteButtonElement());
+        replyContainer.appendChild(createEditButtonElement());
+    } else {
+        replyContainer.appendChild(createReplyButtonElement());
+    }
+    replyContainer.appendChild(createContentElement(reply.content, reply.replyingTo));
+
+    return replyContainer;
 }
 
 const init = (comments, currentUser) => {
