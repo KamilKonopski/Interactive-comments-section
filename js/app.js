@@ -1,4 +1,6 @@
 const commentsContainer = document.querySelector('.comments-container');
+const addForm = document.querySelector('.add-comment__form');
+const textAreaForm = document.querySelector('.add-comment__input');
 
 let comments = [];
 let currentUser;
@@ -130,6 +132,9 @@ const createContentElement = (content, replyingTo='') => {
 const createCommentContainerElement = (comment) => {
     const commentContainer = document.createElement('div');
     commentContainer.classList.add('comment', 'main-comment');
+    if(currentUser.userName === comment.user) {
+        commentContainer.classList.add('comment', 'main-comment', 'current-user-comment')
+    }
     commentContainer.setAttribute('data-user', `${comment.user}`);
 
     commentContainer.appendChild(createLikesElement(comment.like));
@@ -141,8 +146,6 @@ const createCommentContainerElement = (comment) => {
         commentContainer.appendChild(createReplyButtonElement());
     }
     commentContainer.appendChild(createContentElement(comment.content));
-
-    
 
     return commentContainer;
 }
@@ -166,7 +169,6 @@ const createSingleCommentElement = (comment, currentUser) => {
 };
 
 const createReplyCommentElement = (reply) => {
-
     const replyContainer = document.createElement('div');
     replyContainer.classList.add('comment', 'reply-comment');
     if(currentUser.userName === reply.user.username) {
@@ -189,9 +191,27 @@ const createReplyCommentElement = (reply) => {
 }
 
 const init = (comments, currentUser) => {
-    console.log(comments);
     comments.forEach(comment => {
         createSingleCommentElement(comment, currentUser);
     });
 }; 
 
+const addNewComment = (event) => {
+    event.preventDefault();
+    commentsContainer.innerHTML = "";
+    const value = textAreaForm.value
+     comments.push({
+        id: 5,
+        content: value,
+        date: 'now',
+        like: 0,
+        avatar: currentUser.avatar,
+        user: currentUser.userName,
+        replies: [],
+    })
+     textAreaForm.value = "";
+
+    init(comments, currentUser)
+};
+
+addForm.addEventListener('submit', addNewComment)
