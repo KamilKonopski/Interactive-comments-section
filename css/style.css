@@ -114,6 +114,7 @@ body {
     cursor: pointer;
     font-weight: 700;
     margin-top: 2px;
+    transition: 0.2s linear;
 }
 
 .comment .content {
@@ -138,6 +139,7 @@ body {
 }
 
 .replies-container .reply-comment {
+    grid-template-columns: 1fr 12fr 2fr;
     margin: 0 0 20px;
     max-width: 700px;
 }
@@ -146,6 +148,47 @@ body {
     margin: 0;
 }
 
+.reply-comment.current-user-comment {
+    grid-template-areas:
+        "likes user delete edit"
+        "likes content content content";
+    grid-template-columns: 1fr 10fr 2fr 2fr;
+    grid-template-rows: 1fr 2fr;
+}
+
+.current-user-comment .user__current-user {
+    background-color: var(--moderate-blue);
+    color: var(--white);
+    font-size: 13px;
+    margin: 3px 8px 0 -10px;
+    padding: 2px 5px;
+}
+
+.current-user-comment .delete-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--soft-red);
+    cursor: pointer;
+    font-weight: 700;
+    grid-area: delete;
+    transition: 0.2s linear;
+}
+
+.current-user-comment .edit-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--moderate-blue);
+    cursor: pointer;
+    font-weight: 700;
+    grid-area: edit;
+    transition: 0.2s linear;
+}
+
+.reply-btn:hover,
+.delete-btn:hover,
+.edit-btn:hover {
+    opacity: 0.5;
+}
 
 .add-comment {
 
