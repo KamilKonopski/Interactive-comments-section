@@ -19,6 +19,7 @@
 
 body {
     background-color: var(--light-gray);
+    font-family: 'Rubik';
     margin: 0 auto;
     max-width: 1440px;
 }
@@ -28,8 +29,62 @@ body {
     max-width: 800px;
 }
 
+.comments-container .comment {
+    background-color: var(--white);
+    border-radius: 8px;
+    display: grid;
+    grid-template-areas:
+        "likes user reply"
+        "likes content content";
+    grid-template-columns: 1fr 15fr 2fr;
+    grid-template-rows: 1fr 2fr;
+    margin: 20px 0;
+    padding: 20px 15px 0;
+}
 
+.comment .like__container {
+    align-items: center;
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    grid-area: likes;
+    height: 12vh;
+    margin-right: 15px;
+}
 
+.like__container .like__btn-plus {
+    background-color: transparent;
+    border: none;
+    flex-basis: 100%;
+}
+
+.like__container .like__score {
+    color: var(--moderate-blue);
+    flex-basis: 100%;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.like__container .like__btn-minus {
+    background-color: transparent;
+    border: none;
+    flex-basis: 100%;
+}
+
+.comment .user__container {
+    display: flex;
+    grid-area: user;
+}
+
+.user__container .user__avatar {
+    width: 5%;
+}
+
+.user__avatar .user__avatar-image {
+    width: 100%;
+}
 
 
 .add-comment {
