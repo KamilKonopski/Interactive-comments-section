@@ -148,6 +148,7 @@ body {
     margin: 0;
 }
 
+.main-comment.current-user-comment,
 .reply-comment.current-user-comment {
     grid-template-areas:
         "likes user delete edit"
