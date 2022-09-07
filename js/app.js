@@ -26,6 +26,9 @@ fetch('../data.json')
         init(comments, currentUser);
     });
 
+    const randomId = () => {
+        return Math.floor((1 + Math.random()) * 0x10000)
+    };
 
 const createLikesElement = (score) => {
     let likeNumber = score ? score : counter = 0;
@@ -201,7 +204,7 @@ const addNewComment = (event) => {
     commentsContainer.innerHTML = "";
     const value = textAreaForm.value
      comments.push({
-        id: 5,
+        id: randomId(),
         content: value,
         date: 'now',
         like: 0,
@@ -211,7 +214,8 @@ const addNewComment = (event) => {
     })
      textAreaForm.value = "";
 
-    init(comments, currentUser)
+    init(comments, currentUser);
+    console.log(comments);
 };
 
-addForm.addEventListener('submit', addNewComment)
+addForm.addEventListener('submit', addNewComment);
