@@ -107,10 +107,11 @@ const createReplyButtonElement = () => {
     return replyButton;
 };
 
-const createDeleteButtonElement = () => {
+const createDeleteButtonElement = (id) => {
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('delete-btn');
     deleteButton.innerHTML = "<img class='delete-btn__image' src='../images/icon-delete.svg' alt='delete button icon'/> Delete";
+    deleteButton.addEventListener('click', () => deleteComment(id));
 
     return deleteButton;
 }
@@ -143,7 +144,7 @@ const createCommentContainerElement = (comment) => {
     commentContainer.appendChild(createLikesElement(comment.like));
     commentContainer.appendChild(createUserInfoElement(comment.avatar, comment.user, comment.date));
     if(currentUser.userName === comment.user) {
-        commentContainer.appendChild(createDeleteButtonElement());
+        commentContainer.appendChild(createDeleteButtonElement(comment.id));
         commentContainer.appendChild(createEditButtonElement());
     } else {
         commentContainer.appendChild(createReplyButtonElement());
@@ -183,7 +184,7 @@ const createReplyCommentElement = (reply) => {
     replyContainer.appendChild(createLikesElement(reply.score));
     replyContainer.appendChild(createUserInfoElement(reply.user.image.webp, reply.user.username, reply.createdAt));
     if(currentUser.userName === reply.user.username) {
-        replyContainer.appendChild(createDeleteButtonElement());
+        replyContainer.appendChild(createDeleteButtonElement(reply.id));
         replyContainer.appendChild(createEditButtonElement());
     } else {
         replyContainer.appendChild(createReplyButtonElement());
@@ -215,7 +216,19 @@ const addNewComment = (event) => {
      textAreaForm.value = "";
 
     init(comments, currentUser);
-    console.log(comments);
 };
+
+const deleteComment = (id) => {
+    commentsContainer.innerHTML = "";
+    
+    const newCommentsArray = comments.filter(comment => comment.id !== id);
+    comments = newCommentsArray;
+
+    comments.forEach(comment => {
+        const newRepliesArray = comment.replies.filter(reply => reply.id !== id);
+         comment.replies = newRepliesArray
+    })
+    init(comments, currentUser)
+}
 
 addForm.addEventListener('submit', addNewComment);
