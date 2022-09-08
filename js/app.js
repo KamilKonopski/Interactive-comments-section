@@ -232,17 +232,17 @@ const init = (comments, currentUser) => {
 const addNewComment = (event) => {
     event.preventDefault();
     commentsContainer.innerHTML = "";
-    // const value = textAreaForm.value
-    //  comments.push({
-    //     id: randomId(),
-    //     content: value,
-    //     date: 'now',
-    //     like: 0,
-    //     avatar: currentUser.avatar,
-    //     user: currentUser.userName,
-    //     replies: [],
-    // })
-    //  textAreaForm.value = "";
+    const value = textAreaForm.value
+     comments.push({
+        id: randomId(),
+        content: value,
+        date: 'now',
+        like: 0,
+        avatar: currentUser.avatar,
+        user: currentUser.userName,
+        replies: [],
+    })
+     textAreaForm.value = "";
 
     // const index = comments.findIndex(element => element.id === );
 
