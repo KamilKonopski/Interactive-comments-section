@@ -111,7 +111,7 @@ const createDeleteButtonElement = (id) => {
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('delete-btn');
     deleteButton.innerHTML = "<img class='delete-btn__image' src='../images/icon-delete.svg' alt='delete button icon'/> Delete";
-    deleteButton.addEventListener('click', () => deleteComment(id));
+    deleteButton.addEventListener('click', () => deleteCommentModal(id));
 
     return deleteButton;
 }
@@ -194,6 +194,35 @@ const createReplyCommentElement = (reply) => {
     return replyContainer;
 }
 
+const createDeleteCommentModalElement = (id, cancelModal, deleteComment) => {
+    const modalELement = document.createElement('div');
+    modalELement.classList.add('modal');
+
+    const modalHeadElement = document.createElement('strong');
+    modalHeadElement.classList.add('modal__heading');
+    modalHeadElement.innerText = 'Delete comment';
+    modalELement.appendChild(modalHeadElement);
+
+    const modalTextElement = document.createElement('span');
+    modalTextElement.classList.add('modal__text');
+    modalTextElement.innerText = 'Are you sure you want delete this comment? This will remove the comment and can`t be undone.';
+    modalELement.appendChild(modalTextElement);
+
+    const cancelButtonElement = document.createElement('button');
+    cancelButtonElement.classList.add('modal__cancel-btn');
+    cancelButtonElement.innerText = 'no, cancel';
+    cancelButtonElement.addEventListener('click', cancelModal);
+    modalELement.appendChild(cancelButtonElement);
+
+    const deleteButtonElement = document.createElement('button');
+    deleteButtonElement.classList.add('modal__delete-btn');
+    deleteButtonElement.innerText = 'yes, delete';
+    deleteButtonElement.addEventListener('click', () => deleteComment(id));
+    modalELement.appendChild(deleteButtonElement)
+
+    return modalELement
+}
+
 const init = (comments, currentUser) => {
     comments.forEach(comment => {
         createSingleCommentElement(comment, currentUser);
@@ -203,32 +232,79 @@ const init = (comments, currentUser) => {
 const addNewComment = (event) => {
     event.preventDefault();
     commentsContainer.innerHTML = "";
-    const value = textAreaForm.value
-     comments.push({
-        id: randomId(),
-        content: value,
-        date: 'now',
-        like: 0,
-        avatar: currentUser.avatar,
-        user: currentUser.userName,
-        replies: [],
-    })
-     textAreaForm.value = "";
+    // const value = textAreaForm.value
+    //  comments.push({
+    //     id: randomId(),
+    //     content: value,
+    //     date: 'now',
+    //     like: 0,
+    //     avatar: currentUser.avatar,
+    //     user: currentUser.userName,
+    //     replies: [],
+    // })
+    //  textAreaForm.value = "";
 
+    // const index = comments.findIndex(element => element.id === );
+
+    // comments[0].replies.push({
+    //     id: 11,
+    //     user: {
+    //         image: {
+    //           webp: currentUser.avatar,
+    //         } ,
+    //         username: currentUser.userName,
+    //     } ,
+    //     createdAt: '2 years ago',
+    //     content: value,
+    //     replyingTo: 'ramsesmiron',
+    // })
+    
     init(comments, currentUser);
 };
 
-const deleteComment = (id) => {
-    commentsContainer.innerHTML = "";
-    
-    const newCommentsArray = comments.filter(comment => comment.id !== id);
-    comments = newCommentsArray;
-
-    comments.forEach(comment => {
-        const newRepliesArray = comment.replies.filter(reply => reply.id !== id);
-         comment.replies = newRepliesArray
+const replyComment = () => {
+    comments[0].replies.push({
+        id: 11,
+        user: {
+            image: {
+              webp: currentUser.avatar,
+            } ,
+            username: currentUser.userName,
+        } ,
+        createdAt: '2 years ago',
+        content: value,
+        replyingTo: 'ramsesmiron',
     })
-    init(comments, currentUser)
+};
+
+const deleteCommentModal = (id) => {
+    const cancelModal = () => {
+        document.body.removeChild(modalContainer);
+    };
+
+    const deleteComment = (id) => {
+        commentsContainer.innerHTML = "";
+    
+        const newCommentsArray = comments.filter(comment => comment.id !== id);
+        comments = newCommentsArray;
+
+        comments.forEach(comment => {
+            const newRepliesArray = comment.replies.filter(reply => reply.id !== id);
+            comment.replies = newRepliesArray
+    })
+        init(comments, currentUser)
+        document.body.removeChild(modalContainer);
+    }
+    
+    const modalContainer = document.createElement('div');
+    modalContainer.classList.add('modal-container');
+    modalContainer.appendChild(createDeleteCommentModalElement(id, cancelModal, () => deleteComment(id)));
+    document.body.appendChild(modalContainer);
+
+    
+    
 }
 
 addForm.addEventListener('submit', addNewComment);
+
+
