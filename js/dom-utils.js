@@ -115,6 +115,8 @@ const createCommentElement = (comment, currentUser) => {
 };
 
 export const renderCommentsList =(comments, currentUser) => {
+    commentsContainer.innerHTML = "";
+    
     comments.forEach(comment => {
         createCommentElement(comment, currentUser);
     });

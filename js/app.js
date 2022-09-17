@@ -2,7 +2,6 @@ import { renderCommentsList } from './dom-utils.js'
 
 const addForm = document.querySelector('.add-comment__form');
 const textAreaForm = document.querySelector('.add-comment__text');
-const commentsContainer = document.querySelector('.comments-container');
 
 let comments;
 let currentUser;
@@ -36,7 +35,6 @@ fetch('../data.json')
     const addNewComment = (event) => {
         event.preventDefault();
         console.log(textAreaForm.value);
-        commentsContainer.innerHTML = "";
          comments.push({
             id: randomId(),
             content: textAreaForm.value,
