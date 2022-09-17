@@ -160,7 +160,7 @@ fetch('../data.json')
     const createReplyCommentElement = (reply) => {
         const replyContainer = document.createElement('div');
         if(currentUser.name === reply.user.username) {
-         replyContainer.classList.add('comment', 'comment__reply', 'current-user-comment')
+         replyContainer.classList.add('comment', 'comment__reply', 'comment__current-user')
         } else {
             replyContainer.classList.add('comment', 'comment__reply');
         }

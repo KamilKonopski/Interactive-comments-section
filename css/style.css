@@ -27,7 +27,6 @@ body {
 .app {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-end;
     margin: 50px auto;
     max-width: 800px;
 }
@@ -51,7 +50,7 @@ body {
 }
 
 .comment__reply {
-    max-width: 600px;
+    max-width: 700px;
 }
 
 .comment.comment__current-user {
@@ -131,6 +130,11 @@ body {
     margin-top: 3px;
 }
 
+.comment__content .content__reply-user {
+    color: var(--moderate-blue);
+    font-weight: 500;
+}
+
 .comment__content {
     color: var(--grayish-blue);
     grid-area: content;
@@ -173,8 +177,18 @@ body {
     margin-top: 3px;
 }
 
-.comment__reply-btn:hover {
+.comment__reply-btn:hover,
+.comment__delete-btn:hover,
+.comment__edit-btn:hover {
     opacity: 0.5;
+}
+
+.comments__replies {
+    border-left: 1px solid rgba(103, 114, 126, 0.2);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-left: 50px;
 }
 
 .add-comment {
