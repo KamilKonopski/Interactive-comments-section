@@ -28,25 +28,59 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    margin: 0 auto;
+    margin: 50px auto;
     max-width: 800px;
 }
 
 .comment {
+    align-items: start;
     background-color: var(--white);
+    border-radius: 8px;
     display: grid;
     grid-template-areas:
         'like user reply'
         'like content content';
-    grid-template-columns: 50px 1fr 100px;
-    grid-template-rows: 100px 1fr;
+    grid-template-columns: 1fr 10fr 2fr;
+    grid-template-rows: 50px 1fr;
     margin-bottom: 20px;
+    padding: 20px 0;
 }
 
 .comment__like-container {
+    background-color: var(--light-gray);
+    border-radius: 8px;
     display: flex;
     flex-wrap: wrap;
     grid-area: like;
+    height: 10vh;
+    margin: 0 20px 20px;
+    padding: 0 8px;
+}
+
+.comment__like-container .comment__plus-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    flex-basis: 100%;
+}
+
+.comment__like-container .comment__plus-btn img:hover {
+    color: var(--moderate-blue);
+}
+
+.comment__like-container .comment__like-number {
+    align-self: center;
+    color: var(--moderate-blue);
+    flex-basis: 100%;
+    font-weight: 500;
+    text-align: center;
+}
+
+.comment__like-container .comment__minus-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    flex-basis: 100%;
 }
 
 .comment__user-container {
@@ -54,16 +88,49 @@ body {
     grid-area: user;
 }
 
+.comment__user-container .comment__user-avatar {
+    margin-right: 10px;
+    width: 5%;
+}
+
+.comment__user-container .comment__user-avatar .comment__user-avatar-image {
+    width: 100%;
+}
+
+.comment__user-container .comment__user-name {
+    color: var(--dark-blue);
+    font-size: 15px;
+    font-weight: 500;
+    margin: 3px 10px 0 0;
+}
+
+.comment__user-container .comment__user-date {
+    color: var(--grayish-blue);
+    margin-top: 3px;
+}
+
 .comment__content {
+    color: var(--grayish-blue);
     grid-area: content;
+    margin-right: 45px;
 }
 
 .comment__reply-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--moderate-blue);
+    cursor: pointer;
+    font-weight: 700;
     grid-area: reply;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+.comment__reply-btn:hover {
+    opacity: 0.5;
 }
 
 .add-comment {
-
     margin-top: 25px;
     width: 800px;
 }

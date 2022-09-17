@@ -8,7 +8,7 @@ const createLikesElement = (like) => {
 
     const plusButton = document.createElement('button');
     plusButton.classList.add('comment__plus-btn');
-    plusButton.innerHTML = "<img class='like__btn-plus-image' src='../images/icon-plus.svg' alt='adding like icon'/>";
+    plusButton.innerHTML = "<img class='comment__plus-btn-image' src='../images/icon-plus.svg' alt='adding like icon'/>";
     plusButton.addEventListener('click', () => {
         likeNumber += 1;
         likeElement.innerText = likeNumber;
@@ -23,7 +23,7 @@ const createLikesElement = (like) => {
 
     const minusButton = document.createElement('button');
     minusButton.classList.add('comment__minus-btn');
-    minusButton.innerHTML = "<img class='like__minus-image' src='../images/icon-minus.svg' alt='subtracting like icon'/>";
+    minusButton.innerHTML = "<img class='comment__minus-btn-image' src='../images/icon-minus.svg' alt='subtracting like icon'/>";
     minusButton.addEventListener('click', () => {
         likeNumber -= 1;
         if(likeNumber == 0) {
@@ -45,7 +45,7 @@ const createUserInfoElement = (avatar, username, date, currentName) => {
 
     const userAvatar = document.createElement('div');
     userAvatar.classList.add('comment__user-avatar');
-    userAvatar.innerHTML = `<img class='user__avatar-image' src="${avatar}" alt="${username} avatar"/>`;
+    userAvatar.innerHTML = `<img class='comment__user-avatar-image' src="${avatar}" alt="${username} avatar"/>`;
     userInfoElement.appendChild(userAvatar);
 
     const userName = document.createElement('span');
