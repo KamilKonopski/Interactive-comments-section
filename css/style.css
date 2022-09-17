@@ -41,15 +41,24 @@ body {
         'like user reply'
         'like content content';
     grid-template-columns: 1fr 10fr 2fr;
-    grid-template-rows: 50px 1fr;
+    grid-template-rows: auto 1fr;
     margin-bottom: 20px;
     padding: 20px 0;
+}
+
+.comment__main {
+    max-width: 800px;
+}
+
+.comment__reply {
+    max-width: 600px;
 }
 
 .comment.comment__current-user {
     grid-template-areas:
         'like user delete edit'
         'like content content content';
+    grid-template-columns: 1fr 9fr auto auto;
 }
 
 .comment__like-container {
@@ -60,7 +69,7 @@ body {
     grid-area: like;
     height: 10vh;
     margin: 0 20px 20px;
-    padding: 0 8px;
+    width: 50%;
 }
 
 .comment__like-container .comment__plus-btn {
@@ -89,6 +98,7 @@ body {
     align-items: flex-start;
     display: flex;
     grid-area: user;
+    margin-bottom: 10px;
 }
 
 .comment__user-container .comment__user-avatar {
@@ -147,7 +157,7 @@ body {
     font-size: 15px;
     font-weight: 700;
     grid-area: delete;
-    margin-right: 10px;
+    margin-right: 30px;
     margin-top: 3px;
 }
 
