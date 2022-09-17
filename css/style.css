@@ -35,7 +35,7 @@ body {
 .comment {
     align-items: start;
     background-color: var(--white);
-    border-radius: 8px;
+    border-radius: 5px;
     display: grid;
     grid-template-areas:
         'like user reply'
@@ -44,6 +44,12 @@ body {
     grid-template-rows: 50px 1fr;
     margin-bottom: 20px;
     padding: 20px 0;
+}
+
+.comment.comment__current-user {
+    grid-template-areas:
+        'like user delete edit'
+        'like content content content';
 }
 
 .comment__like-container {
@@ -64,10 +70,6 @@ body {
     flex-basis: 100%;
 }
 
-.comment__like-container .comment__plus-btn img:hover {
-    color: var(--moderate-blue);
-}
-
 .comment__like-container .comment__like-number {
     align-self: center;
     color: var(--moderate-blue);
@@ -84,6 +86,7 @@ body {
 }
 
 .comment__user-container {
+    align-items: flex-start;
     display: flex;
     grid-area: user;
 }
@@ -104,6 +107,15 @@ body {
     margin: 3px 10px 0 0;
 }
 
+.comment__user-container .comment__current-user-id {
+    background-color: var(--moderate-blue);
+    color: var(--white);
+    font-size: 13px;
+    margin-top: 3px;
+    margin-right: 15px;
+    padding: 2px 6px;
+}
+
 .comment__user-container .comment__user-date {
     color: var(--grayish-blue);
     margin-top: 3px;
@@ -120,9 +132,34 @@ body {
     border: none;
     color: var(--moderate-blue);
     cursor: pointer;
+    font-size: 15px;
     font-weight: 700;
     grid-area: reply;
     margin-right: 10px;
+    margin-top: 3px;
+}
+
+.comment__delete-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--soft-red);
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
+    grid-area: delete;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+.comment__edit-btn {
+    background-color: transparent;
+    border: none;
+    color: var(--moderate-blue);
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
+    grid-area: edit;
+    margin-right: 40px;
     margin-top: 3px;
 }
 

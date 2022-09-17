@@ -87,20 +87,43 @@ const createReplyButtonElement = (username) => {
     return replyButton;
 };
 
+const createDeleteButtonElement = () => {
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('comment__delete-btn');
+    deleteButton.innerHTML = "<img class='delete-btn__image' src='../images/icon-delete.svg' alt='delete button icon'/> Delete";
+    // deleteButton.addEventListener('click', () => deleteCommentModal(id));
+
+    return deleteButton;
+}
+
+const createEditButtonElement = () => {
+    const editButton = document.createElement('button');
+    editButton.classList.add('comment__edit-btn');
+    editButton.innerHTML = "<img class='edit-btn__image' src='../images/icon-edit.svg' alt='edit button icon'/> Edit";
+
+    return editButton;
+};
+
 const createCommentItemELement = (comment, currentUser) => {
     const commentMainElement = document.createElement('div');
-    commentMainElement.classList.add('comment', 'comment__main');
-    if(currentUser.name === comment.user) {
+    if(currentUser.name === comment.name) {
         commentMainElement.classList.add('comment', 'comment__main', 'comment__current-user');
+        commentMainElement.setAttribute('data-user', `${currentUser.name}`);
     } else {
+        commentMainElement.classList.add('comment', 'comment__main');
         commentMainElement.setAttribute('data-user', `${comment.name}`);
     }
 
     commentMainElement.appendChild(createLikesElement(comment.like));
     commentMainElement.appendChild(createUserInfoElement(comment.avatar, comment.name, comment.date, currentUser.name));
     commentMainElement.appendChild(createContentElement(comment.content));
-    commentMainElement.appendChild(createReplyButtonElement(comment.name));
-
+    if(currentUser.name === comment.name) {
+        commentMainElement.appendChild(createDeleteButtonElement());
+        commentMainElement.appendChild(createEditButtonElement());
+    } else {
+        commentMainElement.appendChild(createReplyButtonElement(comment.name));
+    }
+    
     return commentMainElement;
 };
 
