@@ -39,7 +39,7 @@ const createLikesElement = (like) => {
     return likeContainer;
 };
 
-const createUserInfoElement = (avatar, username, date) => {
+const createUserInfoElement = (avatar, username, date, currentName) => {
     const userInfoElement = document.createElement('div');
     userInfoElement.classList.add('comment__user-container');
 
@@ -52,6 +52,12 @@ const createUserInfoElement = (avatar, username, date) => {
     userName.classList.add('comment__user-name');
     userName.innerText = `${username}`;
     userInfoElement.appendChild(userName);
+    if(currentName === username) {
+        const currentUserElement = document.createElement('span');
+        currentUserElement.classList.add('comment__current-user-id');
+        currentUserElement.innerText = 'you';
+        userInfoElement.appendChild(currentUserElement);
+    }
 
     const userDate = document.createElement('span');
     userDate.classList.add('comment__user-date');
@@ -71,10 +77,10 @@ const createContentElement = (content, replyingTo='') => {
 }
 
 
-const createReplyButtonElement = (user) => {
+const createReplyButtonElement = (username) => {
     const replyButton = document.createElement('button');
     replyButton.classList.add('comment__reply-btn');
-    replyButton.setAttribute('data-user', `${user}`)
+    replyButton.setAttribute('data-user', `${username}`);
     replyButton.innerHTML = "<img class='reply-btn__image' src='../images/icon-reply.svg' alt='reply button icon'/> Reply";
     // replyButton.addEventListener('click', () => replyComment(replyButton))
 
@@ -84,10 +90,14 @@ const createReplyButtonElement = (user) => {
 const createCommentItemELement = (comment, currentUser) => {
     const commentMainElement = document.createElement('div');
     commentMainElement.classList.add('comment', 'comment__main');
-    commentMainElement.setAttribute('data-user', `${comment.name}`);
+    if(currentUser.name === comment.user) {
+        commentMainElement.classList.add('comment', 'comment__main', 'comment__current-user');
+    } else {
+        commentMainElement.setAttribute('data-user', `${comment.name}`);
+    }
 
     commentMainElement.appendChild(createLikesElement(comment.like));
-    commentMainElement.appendChild(createUserInfoElement(comment.avatar, comment.name, comment.date));
+    commentMainElement.appendChild(createUserInfoElement(comment.avatar, comment.name, comment.date, currentUser.name));
     commentMainElement.appendChild(createContentElement(comment.content));
     commentMainElement.appendChild(createReplyButtonElement(comment.name));
 
