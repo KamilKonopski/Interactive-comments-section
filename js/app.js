@@ -107,12 +107,16 @@ fetch('../data.json')
     }
     
     
-    const createReplyButtonElement = (username) => {
+    const createReplyButtonElement = (username, id) => {
         const replyButton = document.createElement('button');
         replyButton.classList.add('comment__reply-btn');
         replyButton.setAttribute('data-user', `${username}`);
         replyButton.innerHTML = "<img class='reply-btn__image' src='../images/icon-reply.svg' alt='reply button icon'/> Reply";
-        // replyButton.addEventListener('click', () => replyComment(replyButton))
+        replyButton.addEventListener('click', () => {
+            // const index = comments.findIndex(element => element.id === id);
+
+            replyButton.parentElement.parentElement.appendChild(createNewReplyComment());
+        })
     
         return replyButton;
     };
@@ -130,7 +134,8 @@ fetch('../data.json')
         const editButton = document.createElement('button');
         editButton.classList.add('comment__edit-btn');
         editButton.innerHTML = "<img class='edit-btn__image' src='../images/icon-edit.svg' alt='edit button icon'/> Edit";
-    
+        editButton.addEventListener('click', () => {
+        });
         return editButton;
     };
     
@@ -149,9 +154,9 @@ fetch('../data.json')
         commentMainElement.appendChild(createContentElement(comment.content));
         if(currentUser.name === comment.name) {
             commentMainElement.appendChild(createDeleteButtonElement(comment.id));
-            commentMainElement.appendChild(createEditButtonElement());
+            commentMainElement.appendChild(createEditButtonElement(comment.content));
         } else {
-            commentMainElement.appendChild(createReplyButtonElement(comment.name));
+            commentMainElement.appendChild(createReplyButtonElement(comment.name, comment.id));
         }
         
         return commentMainElement;
@@ -171,13 +176,36 @@ fetch('../data.json')
         replyContainer.appendChild(createUserInfoElement(reply.user.image.webp, reply.user.username, reply.createdAt));
         if(currentUser.name === reply.user.username) {
             replyContainer.appendChild(createDeleteButtonElement(reply.id));
-            replyContainer.appendChild(createEditButtonElement());
+            replyContainer.appendChild(createEditButtonElement(reply.content));
         } else {
-            replyContainer.appendChild(createReplyButtonElement(reply.user.username));
+            replyContainer.appendChild(createReplyButtonElement(reply.user.username, reply.id));
         }
         replyContainer.appendChild(createContentElement(reply.content, reply.replyingTo));
 
         return replyContainer;
+    };
+
+    const createNewReplyComment = () => {
+        const newReplyForm = document.createElement('form');
+            newReplyForm.classList.add('add-comment__form', 'new-comment__reply');
+
+            const newReplyAvatarContainer = document.createElement('div');
+            const newReplyAvatar = document.createElement('img');
+            newReplyAvatar.src = currentUser.avatar;
+            newReplyAvatar.alt = currentUser.name;
+            newReplyAvatarContainer.appendChild(newReplyAvatar);
+
+            const newReplytext = document.createElement('textarea');
+
+            const newReplyButton = document.createElement('button');
+            newReplyButton.classList.add('add-comment__btn');
+            newReplyButton.innerText = 'reply';
+
+            newReplyForm.appendChild(newReplyAvatarContainer);
+            newReplyForm.appendChild(newReplytext);
+            newReplyForm.appendChild(newReplyButton);
+
+            return newReplyForm;
     };
     
     const createCommentElement = (comment, currentUser) => {
@@ -247,7 +275,7 @@ fetch('../data.json')
         })
          textAreaForm.value = "";
     
-        // const index = comments.findIndex(element => element.id === );
+        // const index = comments.findIndex(element => element.id === id);
     
         // comments[0].replies.push({
         //     id: 11,
@@ -284,6 +312,8 @@ fetch('../data.json')
             renderCommentsList(comments, currentUser);
             document.body.removeChild(modalContainer);
         };
+
+    
         
         const modalContainer = document.createElement('div');
         modalContainer.classList.add('modal-container');

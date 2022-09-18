@@ -227,7 +227,7 @@ body {
     outline-color: var(--light-grayish-blue);
 }
 
-.add-comment .add-comment__btn {
+.add-comment__form .add-comment__btn {
     background-color: var(--moderate-blue);
     border: none;
     border-radius: 6px;
