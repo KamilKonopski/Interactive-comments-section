@@ -5,7 +5,7 @@ const textAreaForm = document.querySelector('.add-comment__text');
 let comments;
 let currentUser;
 
-const randomId = () => {
+function randomId() {
     return Math.floor((1 + Math.random()) * 0x10000)
 };
 
